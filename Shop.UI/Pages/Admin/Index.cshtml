@@ -1,0 +1,78 @@
+@page
+@model IndexModel
+@{}
+
+<div class="container" id="app">
+    @* <input type="number" v-model="price" />
+    <button @@click="togglePrice">Toggle Price</button> *@
+    
+    @* <p v-show="showPrice">
+        {{price}}
+    </p>
+    <p v-if="showPrice">
+        {{formatPrice}}
+    </p> *@
+
+    @* <button @@click="getProducts">Get Products</button> *@
+    @* <product-manager></product-manager> *@
+    <div v-if="!editing">
+        <button class="button is-primary" @@click="newProduct">New product</button>
+        <table class="table is-fullwidth is-bordered">
+            <tr>
+                <th>Id</th>
+                <th>Product name</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+            <tr v-for="(product, index) in products">
+                <td>
+                    {{product.id}}
+                </td>
+                <td>
+                    {{product.name}}
+                </td>
+                <td>
+                    {{product.value}}
+                </td>
+                <td>
+                    <!-- <a @@click="editProduct(product, index)">Edit</a> -->
+                    <a href="#" @@click="editProduct(product.id, index)">Edit</a>
+                    <a href="#" @@click="deleteProduct(product.id, index)">Remove</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div v-else>
+        <div class="field">
+            <label class="label">Product name</label>
+            <div class="control">
+                <input class="input" v-model="productModel.name" />
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Product description</label>
+            <div class="control">
+                <input class="input" v-model="productModel.description" />
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Product value</label>
+            <div class="control">
+                <input class="input" v-model="productModel.value" />
+            </div>
+        </div> 
+        <div class="field">
+            <div class="control">
+                <button class="button is-success" @@click="createProduct" v-if="!productModel.id">Create Product</button>
+                <button class="button is-warning" @@click="updateProduct" v-else>Update Product</button>
+                <button class="button is-danger" @@click="cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @* <script src="~/js/admin/product-component.js"></script> *@
+    <script src="~/js/admin/product.js"></script>
+}

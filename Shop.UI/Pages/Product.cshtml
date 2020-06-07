@@ -1,0 +1,77 @@
+@page "{name}"
+@model ProductModel
+@{}
+
+<div class="hero">
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-6">
+                    <figure class="image is-1by1">
+                        <img src="~/images/item.jpg" alt="@Model.Product.Name" />
+                    </figure>
+                </div>
+                <div class="column is-4-tablet is-mobile">
+                    <section class="content">
+                        <header>
+                            <p class="title">@Model.Product.Name</p>
+                            <p class="subtitle">@Model.Product.Description</p>
+                        </header>
+                        <main>
+                            <br />
+                            <p>No details</p>
+                        </main>
+                        <footer style="margin-top: 50%">
+                            <form method="post">
+                                <div class="field">
+                                    <label class="label">Unit price: @Model.Product.Value</label>
+                                </div>
+
+                                <div class="field">
+                                    <label class="label">Spec</label>
+                                    <div class="control is-expanded">
+                                        <div class="select is-fullwidth">
+                                            <select asp-for="CartViewModel.StockId">
+                                                @foreach (var stock in Model.Product.Stocks)
+                                                {
+                                                    bool disabled = stock.Quantity <= 0;
+
+                                                    <option value="@stock.Id" disabled="@disabled">@stock.Description</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <label class="label">Quantity</label>
+                                    <div class="control is-expanded">
+                                       <input class="input" asp-for="CartViewModel.Quantity" value="1" min="1" />
+                                    </div>
+                                </div>
+
+                                <div class="field is-grouped is-grouped-right">
+                                    <div class="control">
+                                        <button class="button is-primary" type="submit">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </footer>
+                    </section>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@* <p>Product name: @Model.Product.Name</p>
+<p>Product description: @Model.Product.Description</p>
+<p>Product price: $@Model.Product.Value</p> *@
+
+<div>
+    
+</div>
+
+
+

@@ -1,0 +1,29 @@
+@model IEnumerable<Shop.Application.Cart.GetCart.Response>
+@{}
+
+<div>
+    <h3 class="title">Cart</h3>
+    @foreach (var product in @Model)
+    {
+        <article class="media">
+            <figure class="media-left">
+                <p class="image is-128x128">
+                    <img src="~/images/item.jpg" />
+                </p>
+            </figure>
+            <div class="media-content">
+                <div class="content">
+                        <p class="title">@product.Name</p>
+                        <div class="level">
+                            <div class="level-item">Quantity: @product.Quantity</div>
+                            <div class="level-item">Specification: @product.StockDescription</div>
+                            <div class="level-item">Price: $@(product.RealValue * product.Quantity) </div>
+                        </div>
+                        <p class="subtitle"></p>
+                        <p class="subtitle"></p>
+                        <p class="subtitle"></p>
+                </div>
+            </div>
+        </article>
+    }
+</div>

@@ -1,0 +1,97 @@
+@model IEnumerable<Shop.Application.Cart.GetCart.Response>
+
+<div id="cart-main">
+@if(@Model.Count() > 0)
+{
+    <div class="columns has-text-centered is-hidden-mobile">
+        <div class="column is-1">
+        </div>
+        <div class="column is-2">
+            <p>Photo</p>
+        </div>
+        <div class="column is-2">
+            <p>Name</p>
+        </div>
+        <div class="column is-2">
+            <p>Specification</p>
+        </div>
+        <div class="column is-2">
+            <p>Quantity</p>
+        </div>
+        <div class="column is-2">
+            <p>Unit price</p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="columns has-text-centered">
+        <div class="column">
+            <p class="title">Cart is empty!</p>
+        </div>
+    </div>
+}
+
+    @foreach (var product in @Model)
+    {
+        <div class="columns is-vcentered has-text-centered">
+            <div class="column is-1">
+                <button class="button is-danger is-hidden-mobile" onclick="removeItemFromCart(event)" data-stock-id="@product.StockId">
+                    <i class="far fa-trash-alt"></i>
+                </button>
+            </div>
+            <div class="column is-2">
+                <figure class="image is-128x128 is-inline-block">
+                    <img src="~/images/item.jpg" />
+                </figure>
+            </div>
+            <div class="column is-2">
+                <p>@product.Name</p>
+            </div>
+            <div class="column is-2">
+                <p>@product.StockDescription</p>
+            </div>
+            <div class="column is-2">
+                <div class="columns is-mobile is-vcentered">
+                    <div class="column is-3-mobile">
+                    </div>
+                    <div class="column is-2-mobile">
+                        <button class="button" id="stock-@product.StockId-removeOneBtn" onclick="removeOneToCart(event)" data-stock-id="@product.StockId">-</button>
+                    </div>
+                    <div class="column is-2-mobile" id="stock-@product.StockId-quantity">
+                        <p>@product.Quantity</p>
+                    </div>
+                    <div class="column is-2-mobile">
+                        <button class="button" id="stock-@product.StockId-addOneBtn" onclick="addOneToCart(event)" data-stock-id="@product.StockId">+</button>
+                    </div>
+                    <div class="column is-3-mobile">
+                    </div>
+                </div>
+            </div>
+            <div class="column is-2">
+                <p>@product.Value</p>
+                <button class="button is-danger is-hidden-desktop" onclick="removeItemFromCart(event)" data-stock-id="@product.StockId">Remove</button>
+            </div>
+        </div>
+    }
+
+    <div class="columns is-vcentered has-text-centered">
+        <div class="column is-1">
+        </div>
+        <div class="column is-2">
+        </div>
+        <div class="column is-3">
+        </div>
+        <div class="column is-2">
+        </div>
+        <div class="column is-1">
+            <a class="button is-text " asp-page="/Index">Back to Store</a>
+        </div>
+    @if(@Model.Count() > 0)
+    {
+        <div class="column is-2">
+            <a class="button is-success" asp-page="/Checkout/CustomerInformation">Checkout</a>
+        </div>
+    }
+    </div>
+</div>

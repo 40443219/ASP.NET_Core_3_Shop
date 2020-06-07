@@ -1,0 +1,95 @@
+@page
+@model CartModel
+@{}
+
+<div class="container">
+    <partial name="_CartPartial" model="@Model.Cart" />
+</div>
+
+@section scripts {
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        let addOneToCart = function(e) {
+            let stockId = e.target.dataset.stockId;
+            let id = `stock-${stockId}-quantity`;
+            let el = document.getElementById(id);
+            let quantity = parseInt(el.innerText);
+
+            let btn = document.getElementById(`stock-${stockId}-addOneBtn`);
+            btn.disabled = true;
+
+            axios.post(`Cart/AddOne/${stockId}`)
+                .then(res => {
+                    updateCart();
+                })
+                .catch(err => {
+                    console.error(err);
+
+                    btn.disabled = false;
+                });
+        }
+
+        let removeOneToCart = function(e) {
+            let stockId = e.target.dataset.stockId;
+            let id = `stock-${stockId}-quantity`;
+            let el = document.getElementById(id);
+            let quantity = parseInt(el.innerText);
+            if(quantity < 2) return;
+            
+            let btn = document.getElementById(`stock-${stockId}-removeOneBtn`);
+            btn.disabled = true;
+
+            axios.post(`Cart/Remove/${stockId}`)
+                .then(res => {
+                    updateCart();
+                })
+                .catch(err => {
+                    console.error(err);
+
+                    btn.disabled = false;
+                });
+        }
+
+        let removeItemFromCart = function(e) {
+            let stockId = e.target.dataset.stockId;
+            let id = `stock-${stockId}-quantity`;
+            let el = document.getElementById(id);
+            let quantity = parseInt(el.innerText);
+
+            axios.post(`Cart/Remove/${stockId}/${quantity}`)
+                .then(res => {
+                    updateCart();
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        }
+
+        let updateCart = function() {
+            axios.get("Cart/GetCartComponent")
+                .then((res) => {
+                    let html = res.data;
+                    let el = document.getElementById('cart-nav');
+
+                    el.outerHTML = html;
+                });
+
+            axios.get("Cart/GetCartMobileComponent")
+                .then((res) => {
+                    let html = res.data;
+                    let el = document.getElementById('cart-navTouch');
+
+                    el.outerHTML = html;
+                });
+
+            axios.get("Cart/GetCartMain")
+                .then((res) => {
+                    let html = res.data;
+                    let el = document.getElementById('cart-main');
+
+                    el.outerHTML = html;
+                });
+        }
+    </script>
+}

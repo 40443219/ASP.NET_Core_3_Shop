@@ -1,0 +1,13 @@
+@page
+@model IndexModel
+@{}
+
+<div class="container" id="app">
+   <input v-model="username" />
+   <input v-model="password" />
+   <button @@click="createUser()">Create user</button>
+</div>
+
+@section scripts {
+    <script src="~/js/admin/users.js"></script>
+}

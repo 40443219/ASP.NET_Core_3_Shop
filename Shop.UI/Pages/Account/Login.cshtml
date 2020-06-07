@@ -1,0 +1,33 @@
+@page
+@model LoginModel
+@{}
+
+<div class="container">
+    <div class="columns is-mobile">
+        <div class="column is-4-tablet is-3-mobile"></div>
+        <div class="column is-4-tablet is-6-mobile">
+            <form method="post">
+                <div class="field">
+                    <div class="control">
+                        <label class="label">Username</label>
+                        <input class="input" type="text" asp-for="Input.Username" />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <label class="label">Password</label>
+                        <input class="input" type="password" asp-for="Input.Password" />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control has-text-right">
+                        <button class="button is-success" type="submit">Sign In</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="column is-4-tablet is-3-mobile"></div>
+    </div>
+</div>
