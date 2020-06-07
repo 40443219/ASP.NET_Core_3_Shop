@@ -113,5 +113,3 @@ dist
 # .Net Core
 bin/
 obj/
-appsettings.Development.json
-appsettings.json
